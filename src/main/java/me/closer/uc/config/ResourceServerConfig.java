@@ -17,10 +17,14 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
+
+        // @formatter:off
         http
-                .authorizeRequests().antMatchers("/users/**").access("#oauth2.hasScope('read')")
-                .and().httpBasic()
-                .and().formLogin();
+                .anonymous().disable()
+                //下面这句很重要，将资源请求在/users/**下，从而不会影响到WebSecurityConfig
+                .requestMatchers().antMatchers("/users/**")
+                .and().authorizeRequests().antMatchers("/users/**").access("#oauth2.hasScope('read')");
+        // @formatter:on
     }
 
     @Override

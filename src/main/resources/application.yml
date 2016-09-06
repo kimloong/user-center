@@ -1,6 +1,12 @@
 spring:
     application:
         name: user-center
+    datasource:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: org.postgresql.Driver
+        url: jdbc:postgresql://localhost:5432/user_center
+        username: postgres
+        password: postgres
 logging:
     level:
         org:
