@@ -1,4 +1,4 @@
-package me.closer.uc.user.web;
+package me.kimloong.uc.user.web;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

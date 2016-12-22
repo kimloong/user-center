@@ -1,4 +1,4 @@
-package me.closer.uc.config;
+package me.kimloong.uc.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

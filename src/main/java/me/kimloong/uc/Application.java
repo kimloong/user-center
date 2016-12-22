@@ -1,4 +1,4 @@
-package me.closer.uc;
+package me.kimloong.uc;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
