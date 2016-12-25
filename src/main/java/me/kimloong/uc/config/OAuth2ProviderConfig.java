@@ -10,7 +10,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 
 /**
  * oauth 2.0 provider config
- * Created by closer on 16-8-20.
+ * @author KimLoong
  */
 @Configuration
 @EnableAuthorizationServer
