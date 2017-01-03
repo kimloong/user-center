@@ -7,9 +7,11 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 
 /**
  * oauth 2.0 provider config
+ *
  * @author KimLoong
  */
 @Configuration
@@ -17,9 +19,17 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 public class OAuth2ProviderConfig extends AuthorizationServerConfigurerAdapter {
 
     private static final String RESOURCE_ID = "user_resource";
+    private static final String MICROBLOG_RESOURCE = "microblog";
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
+
+    @Override
+    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+        security.allowFormAuthenticationForClients()
+                .checkTokenAccess("fullyAuthenticated");
+    }
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
@@ -29,19 +39,11 @@ public class OAuth2ProviderConfig extends AuthorizationServerConfigurerAdapter {
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
-                .withClient("client-with-registered-redirect")
+                .withClient(MICROBLOG_RESOURCE)
                 .authorizedGrantTypes("authorization_code")
-                .authorities("ROLE_CLIENT")
-                .scopes("read", "trust")
-                .resourceIds(RESOURCE_ID)
-                .redirectUris("http://www.baidu.com")
-                .secret("secret123")
-                .and()
-                .withClient("my-client-with-secret")
-                .authorizedGrantTypes("client_credentials", "password")
-                .authorities("ROLE_CLIENT")
                 .scopes("read")
-                .resourceIds(RESOURCE_ID)
-                .secret("secret");
+                .redirectUris("http://localhost:8081/microblog/login")
+                .secret("secret123")
+                .autoApprove("read");
     }
 }

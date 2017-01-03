@@ -1,7 +1,11 @@
 spring:
-    application:
-        name: user-center
+  application:
+    name: user-center
+
+server:
+  context-path: /uc
+
 logging:
-    level:
-        org:
-            springframework: DEBUG
+  level:
+    org:
+      springframework: DEBUG
