@@ -24,6 +24,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 //下面这句很重要，将匹配的request才归为该resource server下，从而不会影响到WebSecurityConfig
                 .requestMatchers().antMatchers("/users/**")
                 .and().authorizeRequests()
+                //用户注册不需要权限
                 .antMatchers(HttpMethod.POST, "/users").permitAll()
                 .anyRequest().access("#oauth2.hasScope('read')");
     }

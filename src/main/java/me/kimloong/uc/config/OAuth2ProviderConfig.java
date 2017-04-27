@@ -18,7 +18,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 @EnableAuthorizationServer
 public class OAuth2ProviderConfig extends AuthorizationServerConfigurerAdapter {
 
-    private static final String RESOURCE_ID = "user_resource";
+    private static final String MICROBLOG_CLIENT = "microblog-client";
     private static final String MICROBLOG_RESOURCE = "microblog";
 
     @Autowired
@@ -39,11 +39,14 @@ public class OAuth2ProviderConfig extends AuthorizationServerConfigurerAdapter {
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
-                .withClient(MICROBLOG_RESOURCE)
+                .withClient(MICROBLOG_CLIENT)
                 .authorizedGrantTypes("authorization_code")
                 .scopes("read")
-                .redirectUris("http://localhost:8081/microblog/login")
+                .redirectUris("http://localhost:8082/microblog-client")
                 .secret("secret123")
-                .autoApprove("read");
+                .autoApprove("read")
+                .and()
+                .withClient(MICROBLOG_RESOURCE)
+                .secret("secret123");
     }
 }
